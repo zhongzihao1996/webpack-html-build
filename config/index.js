@@ -17,7 +17,7 @@ const ConfigSetting = {
 
         // 主机、端口号
         host: 'localhost',
-        port: 2019,
+        port: 8080,
     },
 
     build: {

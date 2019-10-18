@@ -4,9 +4,9 @@ process.env.NODE_ENV = 'development';
 const merge = require('webpack-merge');
 const ora = require('ora');
 const spinner = ora('The service is being started......\n');
-const chalk = require('chalk');
 const webpack = require('webpack');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const portfinder = require('portfinder');
 
 const config = require('../config/index');
 
@@ -55,25 +55,27 @@ module.exports = async () => {
     delete require.cache[require.resolve('./webpack.base.config')];
     const basewebpackconfig = await require('./webpack.base.config');
     const plugins = await require('./webpack.extend.config');
-    // console.log(plugins)
     let result = function () {
       for (let plugin of plugins) {
         devconfig.plugins.push(plugin)
       }
-      devconfig.plugins.push(new FriendlyErrorsPlugin({
-        compilationSuccessInfo: {
-          messages: [`点击打开:http://${ config.ConfigSetting.dev.host}:${ config.ConfigSetting.dev.port}`],
-        },
-      }))
       return devconfig;
     }
-    const obj = await merge(basewebpackconfig, result());
-    return obj;
+    return new Promise((resolve, reject) => {
+      portfinder.basePort = config.ConfigSetting.dev.port;
+      portfinder.getPort((err, port) => {
+        if (err) reject(err);
+        devconfig.devServer.port = port;
+        devconfig.plugins.push(new FriendlyErrorsPlugin({
+          compilationSuccessInfo: {
+            messages: [`点击打开:http://${ config.ConfigSetting.dev.host}:${port}/index`],
+          },
+        }));
+        resolve(merge(basewebpackconfig, result()));
+      });
+    });
   } catch (e) {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>');
-    console.log(chalk.red(`${e}`));
-    console.log('>>>>>>>>>>>>>>>>>>>>>>');
-    throw e
+    console.log(e);
   } finally {
     spinner.stop();
   }
