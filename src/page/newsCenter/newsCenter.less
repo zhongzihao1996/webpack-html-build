@@ -1,17 +1,97 @@
 //重置样式
 @import '../../public/css/reset.less';
+
 a {
-    display: block;
+  display: block;
 }
 
 //header
 @import '../../components/header/header.less';
+
 #wrap {
+  position: relative;
+  width: 100%;
+  min-width: 1200px;
+  max-width: 1920px;
+  margin: 0 auto;
+
+  //content
+  section {
     position: relative;
     width: 100%;
-    min-width: 1200px;
-    max-width: 1920px;
     margin: 0 auto;
+    padding: 206px 0 20px 0;
+    background: rgba(252, 252, 252, 1);
+
+    .container {
+      position: relative;
+      width: 1200px;
+      min-height: ~"calc(100vh - 410px)";
+      margin: 0 auto;
+
+      .content {
+        width: 1200px;
+        margin: 0 auto;
+
+        .content_item {
+          display: block;
+          height: 130px;
+          margin-bottom: 24px;
+          padding-bottom: 20px;
+          overflow: hidden;
+          border-bottom: 1px solid rgba(220, 220, 220, 1);
+
+          a {
+            position: relative;
+            overflow: hidden;
+
+            img {
+              float: left;
+              width: 220px;
+              height: 110px;
+              margin-right: 30px;
+            }
+
+            .content_text {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              left: 250px;
+              width: 788px;
+
+              h2,
+              p {
+                color: rgba(51, 51, 51, 1);
+              }
+
+              h2 {
+                margin-bottom: 16px;
+                font-size: 20px;
+                font-weight: 700;
+                margin-bottom: 15px;
+              }
+
+              p {
+                font-size: 14px;
+              }
+            }
+
+            .content_enter {
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 50px;
+              width: 49px;
+              height: 49px;
+            }
+
+          }
+        }
+      }
+
+    }
+  }
 }
+
 //footer
 @import '../../components/footer/footer.less';

@@ -8,7 +8,30 @@
 
 <body>
   <div id="wrap">
-    @require('../../components/header/header.html') 
+    @require('../../components/header/header.html')
+    <section>
+      <article class="container">
+        <div class="content">
+          <% for(let i=0,list=config.article.list;i<list.length;i++){%>
+          <%if(i==5){break}%>
+          <div class="content_item">
+            <a href="<%=list[i].link%>" target="_blank">
+              <img src="<%=list[i].img%>">
+              <div class="content_text">
+                <h2>
+                  <%=list[i].title%>
+                </h2>
+                <p>
+                  <%=list[i].abstract%>
+                </p>
+              </div>
+              <button class="content_enter" href="<%=list[i].link%>" target="_blank"></button>
+            </a>
+          </div>
+          <%}%>
+        </div>
+      </article>
+    </section>
     @require('../../components/footer/footer.html')
   </div>
 </body>

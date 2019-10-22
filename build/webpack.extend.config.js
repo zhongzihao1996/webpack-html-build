@@ -90,10 +90,12 @@ module.exports = (async () => {
           //新闻列表
           const news_ = config.getentry(path.resolve(__dirname, '../src/page/news/*.html'));
           for (const page in news_) {
-            for (let i = 0; i < data_news.article.list.length; i++) {
-              let article_detail = {};
-              article_detail.id = data_news.article.list[i]._id;
-              article_detail.detail = data_news.detail;
+            for (let i = 0, len = data_news.article.list.length; i < len; i++) {
+              let article_detail = {
+                id: data_news.article.list[i]._id,
+                detail: data_news.detail,
+                article: data_news.article.list[i],
+              };
               methods.Pushpagelist(`${news_[page]}`, `${page}`, article_detail, article_detail.id);
             }
           }

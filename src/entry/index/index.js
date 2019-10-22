@@ -2,4 +2,11 @@ require('../../page/index/index.less');
 
 const $ = require('../../public/js/jq');
 
-$(document).ready(function () {});
+const navTabChange = require('../../public/methods/navTabChange');
+
+$(document).ready(() => {
+
+  // 初始化导航栏
+  navTabChange($(".top_right_farther"), 'index', 'li.top_right_farther', 'active');
+
+});
