@@ -11,11 +11,11 @@ async function buildWeb() {
 
   spinner.start();
   // 打包前删除文件夹
-  await rm(path.resolve(__dirname, '../dist'), () => {});
+  await rm(path.resolve(__dirname, '../dist'), () => { });
   try {
     const webpackConfig = await require(path.resolve(__dirname, `./webpack.prod.config`))();
-    // console.log(webpackConfig);
-    await webpack(webpackConfig, (err, stats) => {
+    const compiler = webpack(webpackConfig);
+    await compiler.run((err, stats) => {
       if (err) throw err;
       process.stdout.write(stats.toString({
         colors: true,
